@@ -28,17 +28,17 @@
 
             <ImageView
                 android:id="@+id/iconIv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/ic_baseline_filter_15_white"
+                app:srcCompat="@drawable/ic_baseline_exit_to_app_24_black"
                 app:tint="?attr/textColorBanner" />
 
             <TextView
                 android:id="@+id/titleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="타이틀 텍스트"
+                android:text="로그인 및 계정"
                 android:textColor="?attr/textColorBanner"
                 android:textSize="@dimen/largeText" />
         </LinearLayout>
@@ -94,15 +94,15 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <Space
-                android:layout_width="match_parent"
-                android:layout_height="100dp" />
-
             <LinearLayout
                 android:id="@+id/beforeLoginLl"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" />
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -149,7 +149,22 @@
                                 android:singleLine="true"
                                 android:textColor="?attr/textColor"
                                 android:textSize="@dimen/middleText" />
+
                         </com.google.android.material.textfield.TextInputLayout>
+
+                        <Space
+                            android:layout_width="match_parent"
+                            android:layout_height="20dp" />
+
+                        <CheckBox
+                            android:id="@+id/autoLoginCb"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:buttonTint="?attr/textColorSecondary"
+                            android:text="자동 로그인"
+                            android:textColor="?attr/textColor"
+                            android:textSize="@dimen/smallText" />
 
                     </LinearLayout>
 
@@ -170,6 +185,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profileCiv"
@@ -304,6 +323,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
+            android:id="@+id/signInCv"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"

@@ -1,10 +1,12 @@
 package com.amnapp.milimeter.activities
 
 import android.content.DialogInterface
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Gravity
+import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.ProgressBar
@@ -12,11 +14,12 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import com.amnapp.milimeter.PreferenceManager
 import com.amnapp.milimeter.R
+import com.amnapp.milimeter.UserData
 import com.amnapp.milimeter.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
-    lateinit var mDialog: AlertDialog//로딩화면임. setProgressDialog()를 실행후 mDialog.show()로 시작
+    lateinit var mLoadingDialog: AlertDialog//로딩화면임. setProgressDialog()를 실행후 mDialog.show()로 시작
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,7 +30,36 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initUI() {
+        setProgressDialog() // 로딩다이얼로그 세팅
 
+        renewLoginUI()//로그인이 되었는 지 아닌지에 따라 화면 결정
+
+        binding.loginBt.setOnClickListener {
+            binding.afterLoginLl.visibility = View.VISIBLE
+            binding.beforeLoginLl.visibility = View.GONE
+            binding.signInCv.visibility = View.GONE
+        }
+        binding.logoutBt.setOnClickListener {
+
+        }
+        binding.signInCv.setOnClickListener {
+            val intent = Intent(this, SignInActivity::class.java)
+            startActivity(intent)
+        }
+    }
+
+    private fun renewLoginUI() {
+        if (UserData.getInstance().login) {//이미 로그인한 상태
+            binding.afterLoginLl.visibility = View.VISIBLE
+            binding.beforeLoginLl.visibility = View.GONE
+            binding.signInCv.visibility = View.GONE
+        } else {//아직 안 한 상태
+            binding.afterLoginLl.visibility = View.GONE
+            binding.beforeLoginLl.visibility = View.VISIBLE
+            binding.signInCv.visibility = View.VISIBLE
+
+            loadLoginData()
+        }
     }
 
     fun loadLoginData() {
@@ -76,6 +108,6 @@ class LoginActivity : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setCancelable(false)
         builder.setView(ll)
-        mDialog = builder.create()
+        mLoadingDialog = builder.create()
     }
 }

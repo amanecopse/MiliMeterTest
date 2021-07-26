@@ -4,10 +4,27 @@ import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Build
+import com.google.firebase.firestore.QuerySnapshot
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import java.nio.charset.Charset
 import java.security.MessageDigest
 
 class AccountManager {
+
+    fun findUserDataById(id: String, callBack: (resultMessage: String, querySnapShot: QuerySnapshot) -> Unit){
+        Firebase.firestore.collection(USERS).whereEqualTo("id", id)
+            .get()
+            .addOnSuccessListener {
+                if(!it.isEmpty){
+                    callBack(ERROR_DUPLICATE_ID, it)
+                }
+                else{
+                    callBack(RESULT_SUCCESS, it)
+                }
+            }
+    }
+
     fun hash(text: String): String? {
         val sha = SHA256()
         return sha.encrypt(text)
@@ -38,9 +55,10 @@ class AccountManager {
         const val TAG = "AccountManager"
         const val USERS = "users"
         const val ERROR_NOT_FOUND_ID = "아이디없는 오류"
+        const val ERROR_DUPLICATE_ID = "아이디 중복 오류"
         const val ERROR_WRONG_INFO = "입력정보가 다름"
-        const val LOGIN_SUCCESS = "로그인 성공"
-        const val UPLOAD_SUCCESS = "업로드 성공"
+        const val RESULT_SUCCESS = "성공"
+        const val RESULT_FAILURE = "실패"
 
     }
 }
