@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">MiliMeter</string>
+    // basic version icon
+    <string name="home">  </string>
+    <string name="body">  </string>
+    <string name="result">  </string>
+    <string name="goal">  </string>
+    <string name="setting">  </string>
+</resources>

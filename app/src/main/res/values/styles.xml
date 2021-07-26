@@ -1,0 +1,31 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <!-- 아래는 다른 모드로 변할 때 바뀌는 값들-->
+        <item name="appWindowBackground">#F2F2F2</item>
+        <item name="cardBackground">#FFFFFF</item>
+        <item name="textColor">#000000</item>
+        <item name="textColorSecondary">#717171</item>
+        <item name="textColorBanner">#04B4AE</item>
+        <item name="iconColor">#6A6A6A</item>
+        <item name="buttonBackground">#04B4AE</item>
+        <item name="buttonTextColor">#FFFFFF</item>
+    </style>
+
+    <style name="DarkAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 이 모드가 되면 이 값들로 변한다-->
+        <item name="appWindowBackground">#111720</item>
+        <item name="cardBackground">#222831</item>
+        <item name="textColor">#FFFFFF</item>
+        <item name="textColorSecondary">#DAA8A8A8</item>
+        <item name="textColorBanner">#04B4AE</item>
+        <item name="iconColor">#00fff5</item>
+        <item name="buttonBackground">#04B4AE</item>
+        <item name="buttonTextColor">#FFFFFF</item>
+    </style>
+
+</resources>

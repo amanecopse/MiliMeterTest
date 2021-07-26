@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">밀리미터</string>
+    // korea version icon
+    <string name="home">홈</string>
+    <string name="body">신체</string>
+    <string name="result">결과</string>
+    <string name="goal">목표</string>
+    <string name="setting">설정</string>
+</resources>

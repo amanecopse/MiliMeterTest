@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="trainingCourse">
+        <item>레그턱</item>
+        <item>240m 왕복달리기</item>
+        <item>전장순환훈련</item>
+        <item>몸무게</item>
+    </string-array>
+
+    <string-array name="TrainingGrade">
+        <item>선택하기</item>
+        <item>특급</item>
+        <item>1급</item>
+        <item>2급</item>
+        <item>3급</item>
+        <item>4급</item>
+        <item>5급</item>
+        <item>6급</item>
+        <item>7급</item>
+        <item>8급</item>
+        <item>9급</item>
+    </string-array>
+
+    <string-array name="bloodType">
+        <item>선택하기</item>
+        <item>RH+ O형</item>
+        <item>RH+ A형</item>
+        <item>RH+ B형</item>
+        <item>RH+ AB형</item>
+        <item>RH- O형</item>
+        <item>RH- A형</item>
+        <item>RH- B형</item>
+        <item>RH- AB형</item>
+    </string-array>
+</resources>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Mili Meter</string>
+    // english version icon
+    <string name="home">home</string>
+    <string name="body">body</string>
+    <string name="result">result</string>
+    <string name="goal">goal</string>
+    <string name="setting">setting</string>
+</resources>
