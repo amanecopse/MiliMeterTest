@@ -10,13 +10,13 @@ data class UserData(var id: String? = null){
     var isAdmin: Boolean = false
     //아래는 프로필 정보
     var name: String? = null
-    var birthDate: Int? = null
-    var militaryId: Int? = null // 입력받을 때 군번에서 '-'없이 입력받을 것
-    var height: Int? = null
-    var weight: Int? = null
+    var birthDate: String? = null
+    var militaryId: String? = null // 입력받을 때 군번에서 '-'없이 입력받을 것
+    var height: String? = null
+    var weight: String? = null
     var bloodType: Int? = null
     //목표 정보
-    var goalOfWeight: Int? = null
+    var goalOfWeight: String? = null
     var goalOfTotalGrade: Int? = null
     var goalOfLegTuckGrade: Int? = null
     var goalOfShuttleRunGrade: Int? = null

@@ -9,6 +9,7 @@ class PreferenceManager {
     private val LOGIN_DATA_ID = "id"
     private val LOGIN_DATA_PW = "pw"
     private val LOGIN_DATA_GC = "gc"
+    private val LOGIN_DATA_AUTO_LOGIN_ENABLE = "auto login"
     private val SETTINGS_DATA_THEME = "theme"
 
     companion object{
@@ -25,11 +26,12 @@ class PreferenceManager {
         return context.getSharedPreferences(PREFERENCE_NAME_SETTINGS, Context.MODE_PRIVATE)
     }
 
-    fun setLoginData(context: Context, id:String, pw:String){
+    fun setLoginData(context: Context, id:String, pw:String, autoLoginEnable: Boolean){
         val prefs = getLoginPreference(context)
         val editor = prefs?.edit()
         editor?.putString(LOGIN_DATA_ID,id)
         editor?.putString(LOGIN_DATA_PW,pw)
+        editor?.putBoolean(LOGIN_DATA_AUTO_LOGIN_ENABLE, autoLoginEnable)
         editor?.apply()
     }
 
@@ -45,6 +47,14 @@ class PreferenceManager {
         val id = prefs?.getString(LOGIN_DATA_ID, "")
         val pw = prefs?.getString(LOGIN_DATA_PW, "")
         return arrayOf(id, pw)
+    }
+
+    fun isAutoLoginEnable(context: Context): Boolean {
+        val prefs = getLoginPreference(context)
+        if(prefs == null)
+            return false
+        else
+            return prefs.getBoolean(LOGIN_DATA_AUTO_LOGIN_ENABLE, false)
     }
 
     fun getThemeData(context: Context): String? {
