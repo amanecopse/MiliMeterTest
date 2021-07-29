@@ -2,12 +2,7 @@ package com.amnapp.milimeter
 
 data class UserData(var id: String? = null){
     var pw: String? = null
-    var childCount: Int = 0
-    var hashedGroupCode: String? = null
-    var inviteHashCode: String? = null
-    var indexHashCode: String? = null
     var login: Boolean = false
-    var isAdmin: Boolean = false
     //아래는 프로필 정보
     var name: String? = null
     var birthDate: String? = null
@@ -30,12 +25,7 @@ data class UserData(var id: String? = null){
             mUserData = getInstance()
             mUserData!!.id = userData.id
             mUserData!!.pw = userData.pw
-            mUserData!!.childCount = userData.childCount
-            mUserData!!.hashedGroupCode = userData.hashedGroupCode
-            mUserData!!.inviteHashCode = userData.inviteHashCode
-            mUserData!!.indexHashCode = userData.indexHashCode
             mUserData!!.login = userData.login
-            mUserData!!.isAdmin = userData.isAdmin
             mUserData!!.name = userData.name
             mUserData!!.birthDate = userData.birthDate
             mUserData!!.militaryId = userData.militaryId
@@ -51,6 +41,32 @@ data class UserData(var id: String? = null){
         fun getInstance(): UserData{
             return mUserData ?: UserData().also{
                 mUserData = it
+            }
+        }
+    }
+}
+
+data class GroupMemberData(var indexHashCode: String? = null){
+    var hashedGroupCode: String? = null
+    var admin: Boolean = false
+    var childCount: Int = 0
+    var id: String? = null
+
+    companion object{
+        private var mGroupMemberData: GroupMemberData? = null
+        var mTmpGroupMemberData: GroupMemberData? = null
+
+        fun setInstance(groupMemberData: GroupMemberData){
+            mGroupMemberData = getInstance()
+            mGroupMemberData!!.hashedGroupCode = groupMemberData.hashedGroupCode
+            mGroupMemberData!!.admin = groupMemberData.admin
+            mGroupMemberData!!.childCount = groupMemberData.childCount
+            mGroupMemberData!!.indexHashCode = groupMemberData.indexHashCode
+            mGroupMemberData!!.id = groupMemberData.id
+        }
+        fun getInstance(): GroupMemberData{
+            return mGroupMemberData ?: GroupMemberData().also{
+                mGroupMemberData = it
             }
         }
     }

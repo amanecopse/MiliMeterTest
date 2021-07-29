@@ -35,6 +35,13 @@ class PreferenceManager {
         editor?.apply()
     }
 
+    fun setGroupCode(context: Context, groupCode: String){
+        val prefs = getLoginPreference(context)
+        val editor = prefs?.edit()
+        editor?.putString(LOGIN_DATA_GC,groupCode)
+        editor?.apply()
+    }
+
     fun setThemeData(context: Context, theme: String){
         val prefs = getSettingsPreference(context)
         val editor = prefs?.edit()
@@ -55,6 +62,12 @@ class PreferenceManager {
             return false
         else
             return prefs.getBoolean(LOGIN_DATA_AUTO_LOGIN_ENABLE, false)
+    }
+
+    fun getGroupCode(context: Context): String?{
+        val prefs = getLoginPreference(context)
+        val groupCode = prefs?.getString(LOGIN_DATA_GC, "")
+        return groupCode
     }
 
     fun getThemeData(context: Context): String? {

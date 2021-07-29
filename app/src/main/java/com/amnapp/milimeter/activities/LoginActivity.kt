@@ -5,19 +5,15 @@ import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import com.amnapp.milimeter.AccountManager
-import com.amnapp.milimeter.PreferenceManager
-import com.amnapp.milimeter.R
-import com.amnapp.milimeter.UserData
+import com.amnapp.milimeter.*
 import com.amnapp.milimeter.databinding.ActivityLoginBinding
+import kotlin.reflect.KClass
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
@@ -66,6 +62,50 @@ class LoginActivity : AppCompatActivity() {
             AccountManager().logout()
             renewLoginUI()
         }
+        binding.publishGroupTv.setOnClickListener {
+            val intent = Intent(this, PublishGroupActivity::class.java)
+            startActivity(intent)
+        }
+        binding.inviteSubUserTv.setOnClickListener {
+            val id = UserData.getInstance().id
+            var groupCode = AccountManager.mGroupCode
+            val hashedGroupCode = GroupMemberData.getInstance().hashedGroupCode
+            val ac = AccountManager()
+            if(ac.checkGroupCodeValid(id, groupCode, hashedGroupCode)){
+                val intent = Intent(this, InviteSubUserActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                showEditTextDialogMessage("그룹코드를 입력해주세요") { input ->
+                    groupCode = input
+                    if(ac.checkGroupCodeValid(id, groupCode, hashedGroupCode)){
+                        PreferenceManager().setGroupCode(this, groupCode!!)
+                        val intent = Intent(this, InviteSubUserActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
+        binding.adminPageTv.setOnClickListener {
+            val id = UserData.getInstance().id
+            var groupCode = AccountManager.mGroupCode
+            val hashedGroupCode = GroupMemberData.getInstance().hashedGroupCode
+            val ac = AccountManager()
+            if(ac.checkGroupCodeValid(id, groupCode, hashedGroupCode)){
+                val intent = Intent(this, AdminPageActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                showEditTextDialogMessage("그룹코드를 입력해주세요") { input ->
+                    groupCode = input
+                    if(ac.checkGroupCodeValid(id, groupCode, hashedGroupCode)){
+                        PreferenceManager().setGroupCode(this, groupCode!!)
+                        val intent = Intent(this, AdminPageActivity::class.java)
+                        startActivity(intent)
+                    }
+                }
+            }
+        }
         binding.signInCv.setOnClickListener {
             val intent = Intent(this, SignInActivity::class.java)
             startActivity(intent)
@@ -84,21 +124,22 @@ class LoginActivity : AppCompatActivity() {
 
     private fun renewLoginUI() {
         val userData = UserData.getInstance()
+        val groupMemberData = GroupMemberData.getInstance()
         if (userData.login) {//이미 로그인한 상태
             binding.afterLoginLl.visibility = View.VISIBLE
             binding.beforeLoginLl.visibility = View.GONE
             binding.signInCv.visibility = View.GONE
-            if(userData.indexHashCode == null){// null이면 그룹 미가입자라는 뜻
+            if(groupMemberData.indexHashCode == null){// null이면 그룹 미가입자라는 뜻
                 binding.inviteSubUserTv.visibility = View.GONE
                 binding.adminPageTv.visibility = View.GONE
-                binding.joinGroupTv.visibility = View.VISIBLE
+                binding.publishGroupTv.visibility = View.VISIBLE
                 binding.leaveGroupTv.visibility = View.GONE
             }
             else{
-                binding.inviteSubUserTv.visibility = View.VISIBLE
-                binding.adminPageTv.visibility = if(userData.isAdmin) View.VISIBLE else View.GONE
-                binding.joinGroupTv.visibility = View.GONE
-                binding.leaveGroupTv.visibility = View.VISIBLE
+                binding.inviteSubUserTv.visibility = if(groupMemberData.admin) View.VISIBLE else View.GONE
+                binding.adminPageTv.visibility = if(groupMemberData.admin) View.VISIBLE else View.GONE
+                binding.publishGroupTv.visibility = View.GONE
+                binding.leaveGroupTv.visibility = if(groupMemberData.admin) View.VISIBLE else View.GONE
             }
         } else {//아직 안 한 상태
             binding.afterLoginLl.visibility = View.GONE
@@ -122,6 +163,26 @@ class LoginActivity : AppCompatActivity() {
         builder.setTitle(title)
         builder.setMessage(body)
         builder.setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int -> }
+        builder.show()
+    }
+
+    fun showEditTextDialogMessage(title: String, callBack: (input: String) -> Unit) {//다이얼로그 메시지를 띄우는 함수
+        val editText = EditText(this)
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setView(editText)
+        builder.setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int -> callBack(editText.text.toString())}
+        builder.setNegativeButton("취소") { dialogInterface: DialogInterface, i: Int -> }
+        builder.show()
+    }
+
+    fun showTwoButtonDialogMessage(title: String, body: String, callBack: (Int) -> Unit) {//다이얼로그 메시지를 띄우는 함수
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle(title)
+        builder.setMessage(body)
+        builder.setPositiveButton("확인") { dialogInterface: DialogInterface, i: Int -> callBack(i)}
+        builder.setNegativeButton("취소") { dialogInterface: DialogInterface, i: Int -> callBack(i)}
         builder.show()
     }
 
@@ -157,5 +218,17 @@ class LoginActivity : AppCompatActivity() {
         builder.setCancelable(false)
         builder.setView(ll)
         mLoadingDialog = builder.create()
+    }
+
+    companion object{
+        const val GROUP_CODE_VALID = "유효한 그룹코드"
+        const val GROUP_CODE_VALID_MASTER = "유효한 마스터 그룹코드"
+        const val GROUP_CODE_INVALID = "유효하지 않은 그룹코드"
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        renewLoginUI()
     }
 }

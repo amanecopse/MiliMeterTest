@@ -259,13 +259,13 @@
                             android:background="?android:attr/listDivider" />
 
                         <TextView
-                            android:id="@+id/joinGroupTv"
+                            android:id="@+id/publishGroupTv"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:clickable="true"
                             android:foreground="?android:attr/selectableItemBackground"
                             android:padding="20dp"
-                            android:text="그룹가입"
+                            android:text="그룹개설"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 

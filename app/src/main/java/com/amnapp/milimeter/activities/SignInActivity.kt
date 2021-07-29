@@ -3,9 +3,9 @@ package com.amnapp.milimeter.activities
 import android.app.DatePickerDialog
 import android.content.DialogInterface
 import android.graphics.Color
-import android.graphics.drawable.Drawable
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputFilter
+import android.text.Spanned
 import android.view.Gravity
 import android.view.ViewGroup
 import android.widget.LinearLayout
@@ -13,17 +13,17 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.widget.addTextChangedListener
 import com.amnapp.milimeter.AccountManager
-import com.amnapp.milimeter.R
 import com.amnapp.milimeter.UserData
-import com.google.android.material.R as MaterialR
-import com.amnapp.milimeter.databinding.ActivityLoginBinding
 import com.amnapp.milimeter.databinding.ActivitySignInBinding
 import com.google.firebase.firestore.QuerySnapshot
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Pattern
+import com.google.android.material.R as MaterialR
 
 class SignInActivity : AppCompatActivity() {
     lateinit var binding: ActivitySignInBinding
@@ -118,7 +118,7 @@ class SignInActivity : AppCompatActivity() {
         userData.id = if(binding.idEt.text.isNullOrEmpty()) null else binding.idEt.text.toString()
         userData.pw = if(binding.pwEt.text.isNullOrEmpty()) null else binding.pwEt.text.toString()
         userData.name = if(binding.nameEt.text.isNullOrEmpty()) null else binding.nameEt.text.toString()
-        userData.birthDate = if(binding.birthDateTv.text.isNullOrEmpty()) null else binding.birthDateTv.text.toString()
+        userData.birthDate = if(binding.birthDateTv.text.toString() == "생년월일 입력") null else binding.birthDateTv.text.toString()
         userData.militaryId  = if(binding.militaryIdEt.text.isNullOrEmpty()) null else binding.militaryIdEt.text.toString()
         userData.height  = if(binding.heightEt.text.isNullOrEmpty()) null else binding.heightEt.text.toString()
         userData.weight  = if(binding.weightEt.text.isNullOrEmpty()) null else binding.weightEt.text.toString()
@@ -129,13 +129,16 @@ class SignInActivity : AppCompatActivity() {
         userData.goalOfShuttleRunGrade = binding.goalOfShuttleRunGradeSp.selectedItemPosition
         userData.goalOfFieldTrainingGrade = binding.goalOfFieldTrainingGradeSp.selectedItemPosition
 
-        AccountManager().signIn(userData){resultMessage ->
+        AccountManager().signIn(this, userData){resultMessage ->
             if(resultMessage == AccountManager.RESULT_SUCCESS){
                 showDialogMessage("가입완료","회원가입이 완료되었습니다"){
                     finish()
                 }
             }
-            mLoadingDialog.show()//로딩해제
+            else if(resultMessage == AccountManager.ERROR_NETWORK_NOT_CONNECTED){
+                showDialogMessage("네트워크 오류", "네트워크에 연결되어 있는 지 확인해주세요"){}
+            }
+            mLoadingDialog.dismiss()//로딩해제
             binding.signInCv.isClickable = true//연타방지해제
         }
     }
@@ -189,7 +192,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         if (binding.nameEt.text.isNullOrEmpty()){
-            binding.nameEt.error = "필수입력란 입니다"
+            binding.nameEt.setError("필수입력란 입니다",
+                ContextCompat.getDrawable(this, MaterialR.drawable.mtrl_ic_error))
             binding.nameTl.helperText = binding.nameEt.error
             valid = false
         }
@@ -199,7 +203,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         if (binding.militaryIdEt.text.isNullOrEmpty()){
-            binding.militaryIdEt.error = "필수입력란 입니다"
+            binding.militaryIdEt.setError("필수입력란 입니다",
+                ContextCompat.getDrawable(this, MaterialR.drawable.mtrl_ic_error))
             binding.militaryIdTl.helperText = binding.militaryIdEt.error
             valid = false
         }
@@ -209,7 +214,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         if (binding.heightEt.text.isNullOrEmpty()){
-            binding.heightEt.error = "필수입력란 입니다"
+            binding.heightEt.setError("필수입력란 입니다",
+                ContextCompat.getDrawable(this, MaterialR.drawable.mtrl_ic_error))
             binding.heightTl.helperText = binding.heightEt.error
             valid = false
         }
@@ -219,7 +225,8 @@ class SignInActivity : AppCompatActivity() {
         }
 
         if (binding.weightEt.text.isNullOrEmpty()){
-            binding.weightEt.error = "필수입력란 입니다"
+            binding.weightEt.setError("필수입력란 입니다",
+                ContextCompat.getDrawable(this, MaterialR.drawable.mtrl_ic_error))
             binding.weightTl.helperText = binding.weightEt.error
             valid = false
         }

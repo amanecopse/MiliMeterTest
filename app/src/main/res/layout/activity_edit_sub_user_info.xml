@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/appWindowBackground"
-    tools:context=".activities.SignInActivity">
+    tools:context=".activities.EditSubUserInfoActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/appBarCl"
@@ -28,17 +28,17 @@
 
             <ImageView
                 android:id="@+id/iconIv"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="10dp"
-                app:srcCompat="@drawable/ic_baseline_note_add_24_black"
+                app:srcCompat="@drawable/ic_baseline_miscellaneous_services_20_white"
                 app:tint="?attr/textColorBanner" />
 
             <TextView
                 android:id="@+id/titleTv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="회원가입"
+                android:text="하위유저 편집"
                 android:textColor="?attr/textColorBanner"
                 android:textSize="@dimen/largeText" />
         </LinearLayout>
@@ -95,8 +95,9 @@
             android:orientation="vertical">
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/defaultCv"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="?attr/cardBackground">
 
@@ -106,93 +107,39 @@
                     android:layout_margin="20dp"
                     android:orientation="vertical">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이름:"
+                        android:textColor="?attr/textColor"
+                        android:textSize="@dimen/smallText" />
+
+                    <TextView
+                        android:id="@+id/nameTv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="이름"
+                        android:textColor="?attr/textColorSecondary"
+                        android:textSize="@dimen/middleText" />
+
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                    <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center|clip_vertical"
-                        android:orientation="horizontal">
+                        android:text="ID:"
+                        android:textColor="?attr/textColor"
+                        android:textSize="@dimen/smallText" />
 
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/idTl"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColorHint="?attr/textColorSecondary"
-                            app:counterEnabled="true"
-                            app:counterMaxLength="20"
-                            app:errorEnabled="true"
-                            app:helperTextTextColor="@android:color/holo_red_dark"
-                            app:passwordToggleTint="?attr/textColorSecondary">
-
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/idEt"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:digits="qwertyuiopasdfghjklzxcvbnm0123456789"
-                                android:hint="*아이디"
-                                android:singleLine="true"
-                                android:textColor="?attr/textColor"
-                                android:textSize="@dimen/middleText" />
-
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <Button
-                            android:id="@+id/checkUniqueBt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="?attr/buttonBackground"
-                            android:text="중복체크"
-                            android:textColor="?attr/buttonTextColor"
-                            android:textSize="@dimen/smallText" />
-
-                    </LinearLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/pwTl"
+                    <TextView
+                        android:id="@+id/idTv"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:textColorHint="?attr/textColorSecondary"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="20"
-                        app:errorEnabled="true"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="?attr/textColorSecondary">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/pwEt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="*비밀번호"
-                            android:password="true"
-                            android:singleLine="true"
-                            android:textColor="?attr/textColor"
-                            android:textSize="@dimen/middleText" />
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/pwCheckTl"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColorHint="?attr/textColorSecondary"
-                        app:counterEnabled="true"
-                        app:counterMaxLength="20"
-                        app:errorEnabled="true"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
-                        app:passwordToggleEnabled="true"
-                        app:passwordToggleTint="?attr/textColorSecondary">
-
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/pwCheckEt"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:hint="*비밀번호 확인"
-                            android:password="true"
-                            android:singleLine="true"
-                            android:textColor="?attr/textColor"
-                            android:textSize="@dimen/middleText" />
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:text="아이디"
+                        android:textColor="?attr/textColorSecondary"
+                        android:textSize="@dimen/middleText" />
 
                 </LinearLayout>
 
@@ -200,7 +147,7 @@
 
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 app:cardBackgroundColor="?attr/cardBackground">
 
@@ -211,23 +158,21 @@
                     android:orientation="vertical">
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/nameTl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColorHint="?attr/textColorSecondary"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
+                        app:passwordToggleEnabled="true"
                         app:passwordToggleTint="?attr/textColorSecondary">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/nameEt"
+                            android:id="@+id/pwEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="*이름"
-                            android:maxLength="20"
+                            android:hint="비밀번호"
+                            android:password="true"
                             android:singleLine="true"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/middleText" />
-
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <LinearLayout
@@ -259,21 +204,18 @@
                     </LinearLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/militaryIdTl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColorHint="?attr/textColorSecondary"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
                         app:passwordToggleTint="?attr/textColorSecondary"
-                        app:suffixText='"-" 없이 숫자만 입력'>
+                        app:suffixText='"-"없이 숫자로'
+                        app:suffixTextColor="?attr/textColor">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/militaryIdEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="*군번"
-                            android:inputType="number"
-                            android:maxLength="20"
+                            android:hint="군번"
                             android:singleLine="true"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/middleText" />
@@ -281,21 +223,18 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/heightTl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColorHint="?attr/textColorSecondary"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
                         app:passwordToggleTint="?attr/textColorSecondary"
-                        app:suffixText="cm">
+                        app:suffixText="cm"
+                        app:suffixTextColor="?attr/textColor">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/heightEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="*키"
-                            android:inputType="number"
-                            android:maxLength="3"
+                            android:hint="키"
                             android:singleLine="true"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/middleText" />
@@ -303,45 +242,45 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
                     <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/weightTl"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:textColorHint="?attr/textColorSecondary"
-                        app:helperTextTextColor="@android:color/holo_red_dark"
                         app:passwordToggleTint="?attr/textColorSecondary"
-                        app:suffixText="kg">
+                        app:suffixText="kg"
+                        app:suffixTextColor="?attr/textColor">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/weightEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="*몸무게"
-                            android:inputType="number"
-                            android:maxLength="3"
+                            android:hint="몸무게"
                             android:singleLine="true"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/middleText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
                             android:text="혈액형:"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
@@ -353,11 +292,6 @@
                         </LinearLayout>
 
                     </LinearLayout>
-
-                    <Space
-                        android:layout_width="match_parent"
-                        android:layout_height="20dp"
-                        android:layout_weight="1" />
 
                 </LinearLayout>
 
@@ -380,26 +314,28 @@
                         android:layout_height="match_parent"
                         android:textColorHint="?attr/textColorSecondary"
                         app:passwordToggleTint="?attr/textColorSecondary"
-                        app:suffixText="kg">
+                        app:suffixText="kg"
+                        app:suffixTextColor="?attr/textColor">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/goalOfWeightEt"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="목표 몸무게"
-                            android:inputType="number"
-                            android:maxLength="3"
                             android:singleLine="true"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/middleText" />
 
                     </com.google.android.material.textfield.TextInputLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
@@ -407,18 +343,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="전체 종목 목표 등급:"
+                            android:text="전체 종목 목표 등급"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/goalOfTotalGradeSp"
+                                android:id="@+id/goalOfTotalRankSp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/TrainingGrade" />
@@ -426,11 +362,14 @@
 
                     </LinearLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
@@ -438,18 +377,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="레그턱 목표 등급:"
+                            android:text="레그턱 목표 등급"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/goalOfLegTuckGradeSp"
+                                android:id="@+id/goalOfLegTuckRankSp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/TrainingGrade" />
@@ -457,11 +396,14 @@
 
                     </LinearLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
@@ -469,18 +411,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="240m 왕복달리기 등급:"
+                            android:text="왕복 달리기 목표 등급"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/goalOfShuttleRunGradeSp"
+                                android:id="@+id/goalOfShuttleRunRankSp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/TrainingGrade" />
@@ -488,11 +430,14 @@
 
                     </LinearLayout>
 
+                    <Space
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp"
+                        android:layout_weight="1" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
                         android:layout_weight="1"
                         android:gravity="center_vertical"
                         android:orientation="vertical">
@@ -500,18 +445,18 @@
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="전장순환운동 목표 등급:"
+                            android:text="전장순환훈련 목표 등급"
                             android:textColor="?attr/textColor"
                             android:textSize="@dimen/smallText" />
 
                         <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:background="@color/white"
                             android:orientation="horizontal">
 
                             <Spinner
-                                android:id="@+id/goalOfFieldTrainingGradeSp"
+                                android:id="@+id/goalOfFieldTrainingRankSp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:entries="@array/TrainingGrade" />
@@ -522,6 +467,15 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <Button
+                android:id="@+id/withdrawBt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/holo_red_light"
+                android:text="해당 계정 그룹에서 탈퇴시키기"
+                android:textColor="?attr/buttonTextColor"
+                android:textSize="@dimen/smallText" />
 
             <Space
                 android:layout_width="match_parent"
@@ -535,14 +489,14 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_marginBottom="8dp"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/signInCv"
+            android:id="@+id/confirmCv"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -563,11 +517,12 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:padding="10dp"
-                    android:text="회원가입"
+                    android:text="저장"
                     android:textColor="?attr/textColorBanner"
                     android:textSize="@dimen/middleText" />
             </LinearLayout>
         </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
